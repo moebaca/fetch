@@ -13,31 +13,31 @@ def download_site(url):
     try:
         page = requests.get(url)
     except requests.exceptions.InvalidSchema:
-        print(f'{bcolors.FAIL}ERROR: Connection to {url} failed. Please ensure this is a valid URL and try again.')
+        print(f'{bcolors.FAIL}ERROR: Connection to {url} failed. Please ensure this is a valid URL and try again.{bcolors.ENDC}')
         exit(1)
     except:
-        print(f'{bcolors.FAIL}ERROR: Something went wrong downloading {url}. Please ensure you can access URL by CLI (ping, curl, etc.) and try again.')
+        print(f'{bcolors.FAIL}ERROR: Something went wrong downloading {url}. Please ensure you can access URL by CLI (ping, curl, etc.) and try again.{bcolors.ENDC}')
         exit(1)
         
     path = get_url_file_path(url)
     with open(path, "w") as file:
         file.write(str(page.text))
-        print(f"{bcolors.OKGREEN}SUCCESS: {url} was successfully downloaded!")
+        print(f"{bcolors.OKGREEN}SUCCESS: {url} was successfully downloaded!{bcolors.ENDC}")
         print_metadata(url)
     
 def folder_create():
     '''Creates destination download folder to store HTML files.'''
     try:
-        print(f"{bcolors.OKBLUE}INFO: Creating '{DOWNLOADS_FOLDER_NAME}' folder in current directory...")
+        print(f"{bcolors.OKBLUE}INFO: Creating '{DOWNLOADS_FOLDER_NAME}' folder in current directory...{bcolors.ENDC}")
         os.mkdir(DOWNLOADS_FOLDER_NAME)
-        print(f"{bcolors.OKGREEN}SUCCESS: '{DOWNLOADS_FOLDER_NAME}' folder successfully created in current directory.")
+        print(f"{bcolors.OKGREEN}SUCCESS: '{DOWNLOADS_FOLDER_NAME}' folder successfully created in current directory.{bcolors.ENDC}")
     except:
-        print(f"{bcolors.WARNING}WARNING: '{DOWNLOADS_FOLDER_NAME}' folder already exists in current directory.")
+        print(f"{bcolors.WARNING}WARNING: '{DOWNLOADS_FOLDER_NAME}' folder already exists in current directory.{bcolors.ENDC}")
         
 def print_metadata(url):
     '''Prints metadata about the HTML to the console.'''
     print()
-    print(bcolors.OKCYAN,"URL Metadata for:", url)
+    print(f'{bcolors.OKCYAN}URL Metadata for: {url}{bcolors.ENDC}')
     
     try:
         path = get_url_file_path(url)
@@ -53,16 +53,16 @@ def print_metadata(url):
             # Finds all images in HTML   
             images = soup.find_all('img')
             
-            print(bcolors.HEADER,"  num_links:", num_links)
-            print(bcolors.HEADER,"  images:", len(images))
+            print(f'    {bcolors.HEADER}num_links: {num_links}{bcolors.ENDC}')
+            print(f'    {bcolors.HEADER}images: {len(images)}{bcolors.ENDC}')
     except FileNotFoundError:
-        print(bcolors.FAIL,"  ERROR: Web page not found locally. Please run 'get-url' command and retry.")
+        print(f"{bcolors.FAIL}ERROR: Web page not found locally. Please run 'get-url' command and retry.{bcolors.ENDC}")
         exit(1)
 
     # Prints file fetch timestamp information
     created_time = os.path.getctime(get_url_file_path(url))
     dt_created = datetime.datetime.fromtimestamp(created_time, tz=datetime.timezone.utc)
-    print(bcolors.HEADER,"  last_fetch:", dt_created.strftime("%a %B %d %Y %I:%M UTC"))
+    print(f'    {bcolors.HEADER}last_fetch: {dt_created.strftime("%a %B %d %Y %I:%M UTC")}{bcolors.ENDC}')
     print()
         
 def clean_url(url):
@@ -82,3 +82,4 @@ class bcolors:
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
+    ENDC = '\033[0m'
