@@ -1,0 +1,84 @@
+'''Utility functions used by the fetch CLI tool.'''
+
+import datetime
+import os
+import re
+import requests
+from bs4 import BeautifulSoup
+
+DOWNLOADS_FOLDER_NAME = "downloads"
+
+def download_site(url):
+    '''Sends an HTTP request to provided URL and saves response to file on local disk. Prints metadata.'''
+    try:
+        page = requests.get(url)
+    except requests.exceptions.InvalidSchema:
+        print(f'{bcolors.FAIL}ERROR: Connection to {url} failed. Please ensure this is a valid URL and try again.')
+        exit(1)
+    except:
+        print(f'{bcolors.FAIL}ERROR: Something went wrong downloading {url}. Please ensure you can access URL by CLI (ping, curl, etc.) and try again.')
+        exit(1)
+        
+    path = get_url_file_path(url)
+    with open(path, "w") as file:
+        file.write(str(page.text))
+        print(f"{bcolors.OKGREEN}SUCCESS: {url} was successfully downloaded!")
+        print_metadata(url)
+    
+def folder_create():
+    '''Creates destination download folder to store HTML files.'''
+    try:
+        print(f"{bcolors.OKBLUE}INFO: Creating '{DOWNLOADS_FOLDER_NAME}' folder in current directory...")
+        os.mkdir(DOWNLOADS_FOLDER_NAME)
+        print(f"{bcolors.OKGREEN}SUCCESS: '{DOWNLOADS_FOLDER_NAME}' folder successfully created in current directory.")
+    except:
+        print(f"{bcolors.WARNING}WARNING: '{DOWNLOADS_FOLDER_NAME}' folder already exists in current directory.")
+        
+def print_metadata(url):
+    '''Prints metadata about the HTML to the console.'''
+    print()
+    print(bcolors.OKCYAN,"URL Metadata for:", url)
+    
+    try:
+        path = get_url_file_path(url)
+        with open(path) as fp:
+            num_links = 0
+            soup = BeautifulSoup(fp, 'html.parser')
+            
+            # Looks for anchor tags and then further inspects for href
+            anchor_tags = soup.find_all('a')
+            for anchor in anchor_tags:
+                if anchor.has_attr('href'): num_links += 1
+                
+            # Finds all images in HTML   
+            images = soup.find_all('img')
+            
+            print(bcolors.HEADER,"  num_links:", num_links)
+            print(bcolors.HEADER,"  images:", len(images))
+    except FileNotFoundError:
+        print(bcolors.FAIL,"  ERROR: Web page not found locally. Please run 'get-url' command and retry.")
+        exit(1)
+
+    # Prints file fetch timestamp information
+    created_time = os.path.getctime(get_url_file_path(url))
+    dt_created = datetime.datetime.fromtimestamp(created_time, tz=datetime.timezone.utc)
+    print(bcolors.HEADER,"  last_fetch:", dt_created.strftime("%a %B %d %Y %I:%M UTC"))
+    print()
+        
+def clean_url(url):
+    '''Cleans up provided URL by removing leading http:// or https://'''
+    return re.sub('http[s]?://', '', url)
+
+def get_url_file_path(url):
+    '''Appends filename to downloads folder absolute path.'''
+    filename = clean_url(url) + '.html'
+    return os.path.join(os.getcwd(), DOWNLOADS_FOLDER_NAME, filename)
+
+'''Colors for prettier output text to console'''
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
