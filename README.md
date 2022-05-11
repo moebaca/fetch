@@ -29,21 +29,10 @@ If you want to use fetch in a clean Docker environment ensure you have Docker in
 $ docker build -t fetch .
 ```
 
-#### Optional Run tests
-To ensure a consistent experience intended by the developer ensure all tests are passing. 
-
-Run the below commands from the fetch directory:
-
+You can hop into the container with the following command:
 ```bash
-$ pip install -r requirements_dev.txt
+$ docker run -it fetch:latest /bin/bash
 ```
-
-```bash
-$ python -m pytest -v
-```
-
-Output should be similar as shown below:
-![docs/fetch_tests.png](docs/fetch_tests.png)
 
 ### Usage
 fetch allows you to inspect it's functionality by running the following command:
@@ -69,3 +58,19 @@ or in Docker:
 $ fetch get-url -h
 ```
 ![docs/fetch_get_url_output.png](docs/fetch_get_url_output.png)
+
+### Run tests
+To ensure a consistent experience intended by the developer ensure all tests are passing. 
+
+Run the below commands from the fetch directory:
+
+```bash
+$ pip install -r requirements_dev.txt
+```
+
+```bash
+$ python -m pytest -v
+```
+
+Output should be similar as shown below:
+![docs/fetch_tests.png](docs/fetch_tests.png)
