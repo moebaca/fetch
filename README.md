@@ -45,3 +45,27 @@ $ python -m pytest -v
 Output should be similar as shown below:
 ![docs/fetch_tests.png](docs/fetch_tests.png)
 
+### Usage
+fetch allows you to inspect it's functionality by running the following command:
+
+```bash
+$ ./fetch.py -h
+```
+or in Docker:
+
+```bash
+$ fetch -h
+```
+You should see the following output like below:
+![docs/fetch_output.png](docs/fetch_output.png)
+
+You can apply those same steps to the individual commands such as:
+```bash
+$ ./fetch.py get-url -h
+```
+or in Docker:
+
+```bash
+$ fetch get-url -h
+```
+![docs/fetch_get_url_output.png](docs/fetch_get_url_output.png)
