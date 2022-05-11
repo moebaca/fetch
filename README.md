@@ -19,7 +19,7 @@ $ cd fetch
 Install PIP dependencies:
 
 ```bash
-$ python3 -m pip install -r requirements_dev.txt
+$ python3 -m pip install -r requirements.txt
 ```
 
 #### Optional Docker Steps
