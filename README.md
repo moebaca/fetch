@@ -26,7 +26,7 @@ $ pip install -r requirements.txt
 If you want to use fetch in a clean Docker environment ensure you have Docker installed and run the following:
 
 ```bash
-$ docker build --pull --rm -f "dockerfile" -t fetch:latest "."
+$ docker build -t fetch .
 ```
 
 #### Optional Run tests
