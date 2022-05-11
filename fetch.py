@@ -21,7 +21,7 @@ def get_url(urls: str):
     fetch_utils.folder_create()
     urls = urls.split(",")
     for url in urls:
-        if url: fetch_utils.download_site(url)
+        if fetch_utils.valid_url(url): fetch_utils.download_site(url)
         
 def describe_url_metadata(urls: str):
     '''
@@ -39,7 +39,7 @@ def describe_url_metadata(urls: str):
    '''
     urls = urls.split(",")
     for url in urls:
-        if url: fetch_utils.print_metadata(url)
+        if fetch_utils.valid_url(url): fetch_utils.print_metadata(url)
     
 if __name__ == '__main__':
     fire.Fire({

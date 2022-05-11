@@ -74,6 +74,18 @@ def get_url_file_path(url):
     filename = clean_url(url) + '.html'
     return os.path.join(os.getcwd(), DOWNLOADS_FOLDER_NAME, filename)
 
+def valid_url(url):
+    '''Matches passed URL string against valid URL Regular Expression looking for http(s)://xxxxxx.xxx
+    Example pulled from: https://www.geeksforgeeks.org/check-if-an-url-is-valid-or-not-using-regular-expression/
+    '''
+    regex = "((http|https)://)(www.)?" + "[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]" + "{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
+    regex = re.compile(regex)
+    if(re.search(regex, url)):
+        return True
+    else:
+        print(f"{bcolors.FAIL}ERROR: {url} failed URL check. Please ensure you've input valid URL(s) including protocol (http/s).{bcolors.ENDC}")
+        exit(1)
+
 '''Colors for prettier output text to console'''
 class bcolors:
     HEADER = '\033[95m'
