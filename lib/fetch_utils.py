@@ -20,6 +20,7 @@ def download_site(url):
         exit(1)
         
     path = get_url_file_path(url)
+    
     with open(path, "w") as file:
         file.write(str(page.text))
         print(f"{bcolors.OKGREEN}SUCCESS: {url} was successfully downloaded!{bcolors.ENDC}")
@@ -56,7 +57,7 @@ def print_metadata(url):
             print(f'    {bcolors.HEADER}num_links: {num_links}{bcolors.ENDC}')
             print(f'    {bcolors.HEADER}images: {len(images)}{bcolors.ENDC}')
     except FileNotFoundError:
-        print(f"{bcolors.FAIL}ERROR: Web page not found locally. Please run 'get-url' command and retry.{bcolors.ENDC}")
+        print(f"{bcolors.FAIL}ERROR: Web page not found locally. Please run 'get-url' command first and then retry.{bcolors.ENDC}")
         exit(1)
 
     # Prints file fetch timestamp information
@@ -66,8 +67,9 @@ def print_metadata(url):
     print()
         
 def clean_url(url):
-    '''Cleans up provided URL by removing leading http:// or https://'''
-    return re.sub('http[s]?://', '', url)
+    '''Cleans up provided URL by removing leading http:// or https:// as well as replacing / with .'''
+    url = re.sub('http[s]?://', '', url)
+    return url.replace("/",".")
 
 def get_url_file_path(url):
     '''Appends filename to downloads folder absolute path.'''

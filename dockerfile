@@ -7,6 +7,9 @@ RUN apt-get update
 # Add files to /fetch
 ADD . /fetch
 
+# Alias fetch
+RUN echo "alias fetch=/fetch/fetch.py" >> /root/.bashrc
+
 # Set working directory to /fetch
 WORKDIR /fetch
 
