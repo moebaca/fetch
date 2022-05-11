@@ -1,5 +1,5 @@
 # fetch
-fetch is a simple command line tool for downloading HTML of web pages locally on disk. It was written to be OS agnostic (tested on Mac and Windows) and also includes Docker support.
+fetch is a simple command line tool for downloading HTML of web pages locally on disk written in Python3. It was written to be OS agnostic (tested on macOS Monterey and Windows WSL2 [Ubuntu 20.02]) and also includes Docker support.
 
 ## TODO
 - Create more tests
@@ -19,7 +19,7 @@ $ cd fetch
 Install PIP dependencies:
 
 ```bash
-$ pip install -r requirements.txt
+$ python3 -m pip install -r requirements_dev.txt
 ```
 
 #### Optional Docker Steps
@@ -38,7 +38,7 @@ $ docker run -it fetch:latest /bin/bash
 fetch allows you to inspect it's functionality by running the following command:
 
 ```bash
-$ ./fetch.py -h
+$ python3 ./fetch.py -h
 ```
 or in Docker:
 
@@ -50,7 +50,7 @@ You should see the following output like below:
 
 You can apply those same steps to the individual commands such as:
 ```bash
-$ ./fetch.py get-url -h
+$ python3 ./fetch.py get-url -h
 ```
 or in Docker:
 
@@ -65,11 +65,11 @@ To ensure a consistent experience intended by the developer ensure all tests are
 Run the below commands from the fetch directory:
 
 ```bash
-$ pip install -r requirements_dev.txt
+$ python3 -m pip install -r requirements_dev.txt
 ```
 
 ```bash
-$ python -m pytest -v
+$ python3 -m pytest -v
 ```
 
 Output should be similar as shown below:
