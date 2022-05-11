@@ -6,7 +6,7 @@ fetch is a simple command line tool for downloading HTML of web pages locally on
 - Add capability to archive all assets instead of just single HTML page for local browsing
 
 ## Getting started
-As previously mentioned the project is written in Python and is OS agnostic (tested on macOS Monterey and Windows 10). Below are steps to clone the repo and run it in your environment or a Docker environment.
+As previously mentioned the project is written in Python and is OS agnostic (tested on macOS Monterey and Windows WSL2 [Ubuntu 20.02]). Below are steps to clone the repo and run it in your environment or a Docker environment.
 
 ### Setup
 Clone this repo locally:
@@ -33,6 +33,7 @@ You can hop into the container with the following command:
 ```bash
 $ docker run -it fetch:latest /bin/bash
 ```
+*note* - In WSL2 I needed to run 'dos2unix *' to get fetch to run. So if you are using WSL2 please install dos2unix inside of the container and run it on the files. 
 
 ### Usage
 fetch allows you to inspect it's functionality by running the following command:
@@ -40,11 +41,7 @@ fetch allows you to inspect it's functionality by running the following command:
 ```bash
 $ python3 ./fetch.py -h
 ```
-or in Docker:
 
-```bash
-$ fetch -h
-```
 You should see the following output like below:
 ![docs/fetch_output.png](docs/fetch_output.png)
 
@@ -52,11 +49,7 @@ You can apply those same steps to the individual commands such as:
 ```bash
 $ python3 ./fetch.py get-url -h
 ```
-or in Docker:
 
-```bash
-$ fetch get-url -h
-```
 ![docs/fetch_get_url_output.png](docs/fetch_get_url_output.png)
 
 ### Run tests
