@@ -1,12 +1,12 @@
 # fetch
-fetch is a simple command line tool for downloading HTML of web pages locally on disk written in Python3. It was written to be OS agnostic (tested on macOS Monterey and Windows WSL2 [Ubuntu 20.02]) and also includes Docker support.
+fetch is a simple command line tool for downloading HTML of web pages locally on disk written in Python3. It was written to be OS agnostic (tested on macOS Monterey, Amazon Linux 2 and Windows WSL2 [Ubuntu 20.02]) and also includes Docker support.
 
 ## TODO
 - Create more tests
 - Add capability to archive all assets instead of just single HTML page for local browsing
 
 ## Getting started
-As previously mentioned the project is written in Python and is OS agnostic (tested on macOS Monterey and Windows WSL2 [Ubuntu 20.02]). Below are steps to clone the repo and run it in your environment or a Docker environment.
+As previously mentioned the project is written in Python and is OS agnostic (tested on macOS Monterey, Amazon Linux 2 and Windows WSL2 [Ubuntu 20.02]). Below are steps to clone the repo and run it in your environment or a Docker environment.
 
 ### Setup
 Clone this repo locally:
